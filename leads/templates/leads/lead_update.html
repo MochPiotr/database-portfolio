@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--           <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit"> Submit </button>
+            </form>
+            <a href="{% url 'leads:lead-delete' lead.pk %}" class="w-1/2 mt-3 flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                Delete
+            </a>
+        </div>
+      <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400">
+    </div>
+  </div>
+</section>
+--> 
+
+
+
+<section>
+    
+  <div class="content">
+    <div>
+      <div class="detail_view">
+      <div class="detail_view_header"> 
+        <h1>{{ lead.name }}</h1>
+
+</div>
+          </div>
+        <form class="update-form" method="post" action="{% url 'leads:lead-update' lead.pk %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+                  <div></div>
+                  <button class="content_button" type="submit">
+                    <span class="material-symbols-outlined">save</span>
+                    Save
+                  </button>
+            
+        </form>
+
+    
+</section>
+
+{% endblock content%}

@@ -1,0 +1,69 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load number_format %}
+    <div class="content">
+        <div class="content_bar">
+            <div class="content_text">
+                <h1>Deals</h1>
+                <h2>Track your sales pipeline and opportunities</h2>
+            </div>
+            <div>
+                <a class="content_button" href="{% url 'leads:deal-create' %}">
+                <span class="material-symbols-outlined">add</span>
+                Add Deal
+                </a>
+            </div>
+            <div>
+                {% if request.user.is_organisor %}
+                    <a class="content_button" href="{% url 'leads:lead-create' %}">
+                    <span class="material-symbols-outlined">add</span>
+                    Add Lead 
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        <div>
+            <div class="content_stats">
+                <div class="box">
+                    <div class="box_text">
+                        <h2>Created</h2>
+                        <h1>${{ total_created|readable_number }}</h1>
+                        <h2>{{ total_created_count }} deal(s)</h2>
+                    </div>
+                    <span class="material-symbols-outlined">add</span>
+                </div>
+                <div class="box">
+                    <div class="box_text">
+                        <h2>In Progress</h2>
+                        <h1>${{ total_in_progress|readable_number }}</h1>
+                        <h2>{{ total_in_progress_count }} deal(s)</h2>
+                    </div>
+                    <span class="material-symbols-outlined">trending_flat</span>
+                </div>
+                <div class="box">
+                    <div class="box_text">
+                        <h2>Lost</h2>
+                        <h1>${{ total_lost|readable_number }}</h1>
+                        <h2>{{ total_lost_count }} deal(s)</h2>
+                    </div>
+                    <span class="material-symbols-outlined">trending_down</span>
+                </div>
+                <div class="box">
+                    <div class="box_text">
+                        <h2>Won</h2>
+                        <h1>${{ total_won|readable_number }}</h1>
+                        <h2>{{ total_won_count }} deal(s)</h2>
+                    </div>
+                    <span class="material-symbols-outlined">trending_up</span>
+                </div>
+            </div>
+            <div>
+                {% include 'leads/deal_list.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

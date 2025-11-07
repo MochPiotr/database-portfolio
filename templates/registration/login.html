@@ -1,0 +1,67 @@
+
+<!-- {% block content %}
+<form method="post" class="login">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="submit" type='submit'>
+        Login
+    </button>
+    <hr/>
+    <a href="{% url 'reset-password' %}" class="button">Forgot password?</a>
+{% endblock content %}
+</form>
+--> 
+
+<div class="welcome">
+<div class="form_container">
+<form class="form" method="post" action="{% url 'landing-page' %}">
+    {% csrf_token %}
+    <div class="flex-column">
+    {{ form.as_p }}
+      <label>Username </label></div>
+      <div class="inputForm">
+       
+        <input type="text" name="username" class="input" placeholder="Enter your Username: carlos">
+      </div>
+    
+    <div class="flex-column">
+      <label>Password </label></div>
+      <div class="inputForm">
+        <input type="password" name="password" class="input" placeholder="Enter your Password: test">
+      </div>
+      {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+    <button class="button-submit" type='submit'>
+        Login
+    </button>
+    
+    <a href="{% url 'reset-password' %}" class="submit">Forgot password?</a>
+    <hr/>
+    <div class="flex-row">
+
+      <span class="span">Forgot password?</span>
+    </div>
+    <p class="p">Don't have an account?</p> 
+    <button class="submit">Sign In</button>
+    <span class="span">
+        <h3>Sign Up</h3>
+    </span>
+</form>
+
+    <div class="form_dis">
+        <div class="scroll-view" id="debug-scroll">
+        <h1 class="scroll-line">Hello You!</h1> 
+        <h4 class="scroll-line">To explore the portfolio project,</h4>
+        <h4 class="scroll-line">log in with the demo account.</h4>
+        <h4 class="scroll-line">Username: carlos</h4>
+        <h4 class="scroll-line">Password: test</h4>
+        <h4 class="scroll-line"> </h4>
+        </div>
+    </div>
+
+</div>
+<div>
+<div>
+
+

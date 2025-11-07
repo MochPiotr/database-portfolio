@@ -1,0 +1,113 @@
+
+<section>
+      <div class="search">
+  <div class="search-input">
+    <span class="material-symbols-outlined">search</span>
+    <input type="search" name="search" class="input" placeholder="Search leads...">
+  </div>
+</div>
+ <div class="table">
+
+  <div class="table_header">
+  <div class="table_cell" data-type="text">
+    <h2>Name</h2><span class="material-symbols-outlined">keyboard_arrow_down</span>
+  </div>
+  <div class="table_cell" data-type="text">
+    <h2>Lead</h2><span class="material-symbols-outlined">keyboard_arrow_down</span>
+  </div>
+  <div class="table_cell" data-type="number">
+    <h2>Value</h2><span class="material-symbols-outlined">keyboard_arrow_down</span>
+  </div>
+  <div class="table_cell" data-type="number">
+    <h2>Probability</h2><span class="material-symbols-outlined">keyboard_arrow_down</span>
+  </div>
+  <div class="table_cell" data-type="date">
+    <h2>Close date</h2><span class="material-symbols-outlined">keyboard_arrow_down</span>
+  </div>
+  <div class="table_cell" data-type="text">
+    <h2>Owner</h2><span class="material-symbols-outlined">keyboard_arrow_down</span>
+  </div>
+  <div class="table_cell">
+    <h2>Action</h2>
+  </div>
+</div>
+
+
+  <!-- Dane -->
+{% if request.resolver_match.url_name == 'dashboard' %}
+  {% for deal in top_deals %}
+    
+      <div class="table_row">
+        <div class="table_cell">{{ deal.name }}</div>
+        <div class="table_cell">{{ deal.lead }}</div>
+        <div class="table_cell">${{ deal.value }}</div>
+        <div class="table_cell">{{ deal.probability }}%</div>
+        <div class="table_cell">{{ deal.close_date}}</div>
+        <div class="table_cell">{{ deal.agent|default:"n/a" }}</div>
+        <div class="table_cell">
+      <a href="{% url 'leads:deal-detail' deal.pk %}">Details</a>
+    </div>
+      </div>
+  {% endfor %}
+{% else %}
+
+  {% for deal in deal_list %}
+  <div class="table_row">
+    <div class="table_cell">{{ deal.name }}</div>
+    <div class="table_cell">{{ deal.lead }}</div>
+    <div class="table_cell">${{ deal.value }}</div>
+    <div class="table_cell">{{ deal.probability }}%</div>
+    <div class="table_cell">{{ deal.close_date}}</div>
+    <div class="table_cell">{{ deal.agent|default:"n/a" }}</div>
+    <div class="table_cell">
+      <a href="{% url 'leads:deal-detail' deal.pk %}">Details</a>
+    </div>
+    {% empty %}
+     <div class="table_cell">n/a</div>
+    <div class="table_cell">n/a</div>
+    <div class="table_cell">n/a</div>
+    <div class="table_cell">n/a</div>
+    <div class="table_cell">n/a</div>
+    <div class="table_cell">n/a</div>
+    <div class="table_cell">n/a</div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+
+    {% if unassigned_leads.exists %}
+    <div class="mt-5 flex flex-wrap -m-4">
+        <div class="p-4 w-full">
+          <h1 class="text-4xl text-gray-800">Unasigned leads</h1>
+        </div>
+        {% for lead in unassigned_leads %}
+        <div class="p-4 lg:w-1/2 md:w-full">
+          <div class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
+            <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-8 h-8" viewBox="0 0 24 24">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+            </div>
+            <div class="flex-grow">
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-3">
+                  {{ contact.first_name }} {{ contact.last_name }}
+              </h2>
+              <p class="leading-relaxed text-base">
+                  Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.
+              </p>
+              <a href="{% url 'leads:assign-agent' lead.pk %}" class="mt-3 text-indigo-500 inline-flex items-center">
+                  Assign an agent
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+

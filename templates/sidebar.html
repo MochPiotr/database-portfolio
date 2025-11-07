@@ -1,0 +1,26 @@
+    <div class="sidebar">
+        {% if request.user.is_authenticated %}
+        <a class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">
+            <span class="material-symbols-outlined">dashboard</span>
+            Dashboard
+        </a>
+        <a href="{% url 'leads:leads' %}" class="{% if request.resolver_match.url_name == 'leads' %}active{% endif %}">
+            <span class="material-symbols-outlined">target</span>
+            Leads
+        </a>
+        <a href="{% url 'contacts'%}" class="{% if request.resolver_match.url_name == 'contacts' %}active{% endif %}">
+            <span class="material-symbols-outlined">account_circle</span>
+            Contacts
+        </a>
+        <a href="{% url 'deals' %}" class="{% if request.resolver_match.url_name == 'deals' %}active{% endif %}">
+        <span class="material-symbols-outlined">payments</span>
+        Deals
+        </a>
+            {% if request.user.is_organisor %}
+                <a href="{% url 'agents:agent-list' %}" class="{% if request.resolver_match.url_name == 'agents' %}active{% endif %}">
+                    <span class="material-symbols-outlined">work</span>
+                    Agents
+                </a>
+            {% endif %}
+        {% endif %}
+    </div>

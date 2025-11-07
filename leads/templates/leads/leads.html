@@ -1,0 +1,27 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="dashboard">
+
+
+    <div class="content">
+        <div class="content_bar">
+            <div class="content_text">
+                <h1>Leads</h1>
+                <h2>Manage and track your sales leads</h2>
+            </div>
+            <div>
+                    <a class="content_button" href="{% url 'leads:lead-create' %}">
+                    <span class="material-symbols-outlined">add</span>
+                    Add Lead 
+                    </a>
+            </div>
+        </div>
+        <div>
+            {% include 'leads/lead_list.html' %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

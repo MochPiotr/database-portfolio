@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section>
+  <div class="content">
+    <div>
+      <div class="detail_view">
+      <div class="detail_view_header"> 
+        <h1>{{ lead.name }}</h1>
+            <div>
+               <a class="content_button" href="{% url 'leads:lead-update' lead.pk %}">
+                  <span class="material-symbols-outlined">edit</span>
+                  Edit
+               </a>
+               
+      
+            </div>
+          </div>
+        <div class="table">
+          <div class="table_row">
+            <div class="table_cell">Name</div>
+            <div class="table_cell">{{ lead.name }}</div>
+          </div>
+          <div class="table_row">
+            <div class="table_cell">Agent</div>
+            <div class="table_cell">{{ lead.agent }}</div>
+          </div>
+            <div class="table_row">
+            <div class="table_cell">Status</div>
+            <div class="table_cell">{{ lead.status }}</div>
+          </div>
+           <div class="table_row">
+            <div class="table_cell">Primary Contact</div>
+            <div class="table_cell">{{ lead.primary_contact }}</div>
+          </div>
+          <div class="table_row">
+            <div class="table_cell">Agent</div>
+            <div class="table_cell">{{ lead.agent }}</div>
+          </div>
+           <div class="table_row">
+            <div class="table_cell">Contacts</div>
+            <div class="table_cell">
+              {% for contact in lead.contacts.all %}
+              {{ contact.first_name }} {{ contact.last_name }}{% if not forloop.last %}, {% endif %}
+              {% empty %}
+              No contacts
+              {% endfor %}
+            </div>
+          </div>
+    </div>
+     <p>
+      
+     <a class="delete_button" href="{% url 'leads:lead-delete' lead.pk %}">Delete
+        <span class="material-symbols-outlined">delete</span>
+     </a>
+</div>
+    <p></p>
+    <div class="detail_view">
+      <div class="detail_view_header"> 
+  
+        <h3>Deals assigned to: {{ lead.name }}</h3>
+            
+      </div>
+
+
+  <div class="table">
+    {% for deal in deals %}
+      <div class="table_row">
+        <div class="table_cell">{{ deal.name }}</div>
+        <div class="table_cell">{{ deal.value }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+</section>
+{% endblock content%}

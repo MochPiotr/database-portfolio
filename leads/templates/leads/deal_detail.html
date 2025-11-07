@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section>
+  <div class="content">
+    <div>
+      <div class="detail_view">
+      <div class="detail_view_header"> 
+        <h1>{{ deal.name }}</h1>
+            <div>
+               <a class="content_button" href="{% url 'leads:deal-update' deal.pk %}">
+                  <span class="material-symbols-outlined">edit</span>
+                  Edit
+                </a>
+            </div>
+          </div>
+        <div class="table">
+          <div class="table_row">
+            <div class="table_cell">Name</div>
+            <div class="table_cell">{{ deal.name}}</div>
+          </div>
+          <div class="table_row">
+            <div class="table_cell">Comapny</div>
+            <div class="table_cell">{{ deal.lead }}</div>
+          </div>
+            <div class="table_row">
+            <div class="table_cell">Value</div>
+            <div class="table_cell">${{ deal.value }}</div>
+          </div>
+           <div class="table_row">
+            <div class="table_cell">Probability</div>
+            <div class="table_cell">{{ deal.probability }}%</div>
+          </div>
+          <div class="table_row">
+            <div class="table_cell">Close Date</div>
+            <div class="table_cell">{{ deal.close_date }}</div>
+          </div>
+             <div class="table_row">
+            <div class="table_cell">Owner</div>
+            <div class="table_cell">{{ deal.agent }}</div>
+          </div>
+    </div>
+    <p>
+     <a class="delete_button" href="{% url 'leads:deal-delete' deal.pk %}">Delete
+        <span class="material-symbols-outlined">delete</span>
+     </a>
+
+
+
+</div>
+
+</section>
+{% endblock content%}

@@ -1,0 +1,60 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load number_format %}
+
+<div class="dashboard">
+
+
+    <div class="content">
+        <div class="content_bar">
+            <div class="content_text">
+                <h1>Dashboard</h1>
+                <h2>Welcome back! Here's your sales overview</h2>
+            </div>
+            <div>
+              <a class="content_button" href="{% url 'leads:deal-create' %}">
+                <span class="material-symbols-outlined">add</span>
+               Add Deal 
+            </a>
+            </div>
+        </div>
+        <div class="content_stats">
+            <div class="box">
+                <div class="box_text">
+                    <h2>Total Leads</h2>
+                    <h1>{{ leads_count }}</h1>
+                </div>
+                <span class="material-symbols-outlined">target</span>
+            </div>
+            <div class="box">
+                <div class="box_text">
+                    <h2>Active Deals</h2>
+                    <h1>{{ deals_count }}</h1>
+                </div>
+                <span class="material-symbols-outlined">account_circle</span>
+            </div>
+            <div class="box">
+                <div class="box_text">
+                    <h2>Revenue</h2>
+                    <h1>${{ deals_total_value|readable_number }}</h1>
+                </div>
+                <span class="material-symbols-outlined">payments</span>
+            </div>
+             <div class="box">
+                <div class="box_text">
+                    <h2>Conversion Rate</h2>
+                    <h1>{{ conversion_rate }}%</h1>
+                </div>
+                <span class="material-symbols-outlined">finance_mode</span>
+            </div>
+        </div>
+        <div>
+            <h1>Top Deals</h1>
+            {% include 'leads/deal_list.html' %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

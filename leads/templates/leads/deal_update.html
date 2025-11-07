@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<section>
+    
+  <div class="content">
+    <div>
+      <div class="detail_view">
+      <div class="detail_view_header"> 
+        <h1>{{ deal.name }}</h1>
+
+</div>
+          </div>
+        <form class="update-form" method="post" action="{% url 'leads:deal-update' deal.pk %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+                  <div></div>
+                  <button class="content_button" type="submit">
+                    <span class="material-symbols-outlined">save</span>
+                    Save
+                  </button>
+            
+        </form>
+
+    
+</section>
+
+{% endblock content%}

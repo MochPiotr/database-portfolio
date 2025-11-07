@@ -1,0 +1,45 @@
+{% load number_format %}
+
+
+<section>
+
+    <div class="search">
+  <div class="search-input">
+    <span class="material-symbols-outlined">search</span>
+    <input type="search" name="search" class="input" placeholder="Search leads...">
+  </div>
+</div>
+    <div class="contacts-container">
+    {% for contact in contacts %}
+        <div class="contact-card" onclick="window.location='{% url 'contact-detail' contact.pk %}'" style="cursor: pointer;">
+            <div class="contact-header">
+                <div class="avatar">
+                    {{ contact.first_name|slice:":1" }}{{ contact.last_name|slice:":1" }}
+                </div>
+                <div class="contact-header-name">
+                    <h3>{{ contact.first_name }} {{ contact.last_name }}</h3>
+                    <h2 class="title">{{ contact.job_position }}</h2>
+                    <h2 class="company">{{ contact.lead }}</h2>
+                </div>
+            </div>
+            <div class="contact-info">
+                <h2><span class="icon">📧</span> {{ contact.email }}</h2>
+                <h2><span class="icon">📞</span> {{ contact.phone }}</h2>
+            </div>
+            <hr>
+            <div class="contact-stats">
+                <div>
+                    <h2 class="label">Total Value</h2>
+                    <h3 class="value">$ {{ contact.total_value|default:"0"|readable_number }}</h3>
+                </div>
+                <div>
+                    <h2 class="label">Deals</h2>
+                    <h3 class="value">{{ contact.total_deals|default:"0" }}</h3>
+                </div>
+            </div>
+        </div>
+
+  {% endfor %}
+</div>
+
+</section>

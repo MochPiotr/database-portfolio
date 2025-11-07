@@ -1,0 +1,22 @@
+<header class="navbar">
+  <div class="sub-navbar">
+    <div class="brand">
+      <span class="material-symbols-outlined">target</span>
+      <span class="title">SalesPro</span>
+    </div>
+    <nav class="nav-links">
+   
+    
+    {% if request.user.is_authenticated %}
+      Logged in as: {{ request.user.username }}
+      <a href="{% url 'landing-page' %}">
+        Logout
+      </a> 
+    {% else %}
+      <a href="{% url 'login' %}">
+        Login
+      </a> 
+    {% endif %}
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div>
+        <a class="content_button_back" href="{% url 'leads:lead-deal' %}">
+            <span class="material-symbols-outlined">chevron_backward</span>
+            Back
+        </a>
+    </div>
+    <h1>Create a new deal</h1>
+    <form method="post" class="create-form-container">
+        {% csrf_token %}
+        {{ form.as_p }}
+   
+        <button type="submit"> Submit </button>
+    </form>
+{% endblock content%}

@@ -1,0 +1,77 @@
+{% load number_format %}
+
+<section>
+<div class="search">
+  <div class="search-input">
+    <span class="material-symbols-outlined">search</span>
+    <input type="search" name="search" class="input" placeholder="Search leads...">
+  </div>
+  <div class="filter-dropdown">
+  <div class="search-filter" id="dropdown-toggle">
+    <span class="material-symbols-outlined">filter_alt</span>
+    <p id="selected-filters">All Status</p>
+    <span class="material-symbols-outlined">keyboard_arrow_down</span>
+  </div>
+
+  <div class="dropdown-menu" id="dropdown-menu">
+    <div class="dropdown-option active" data-value="all">
+      <span class="material-symbols-outlined check-icon">check_small</span>
+      <span>All Status</span>
+    </div>
+    <div class="dropdown-option" data-value="created">
+      <span class="material-symbols-outlined check-icon hidden">check_small</span>
+      <span>New</span>
+    </div>
+    <div class="dropdown-option" data-value="in_progress">
+      <span class="material-symbols-outlined check-icon hidden">check_small</span>
+      <span>Regular</span>
+    </div>
+    <div class="dropdown-option" data-value="won">
+      <span class="material-symbols-outlined check-icon hidden">check_small</span>
+      <span>Key</span>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+ <div class="table">
+  <div class="table_header">
+    <div class="table_cell"><h2>Company</h2></div>
+    <div class="table_cell"><h2>Primary Contact</h2></div>
+    <div class="table_cell"><h2>Total Value</h2></div>
+    <div class="table_cell"><h2>Deals</h2></div>
+    <div class="table_cell"><h2>Status</h2></div>
+    <div class="table_cell"><h2>Agent</h2></div>
+    <div class="table_cell"><h2> </h2></div>
+  </div>
+
+  <!-- Dane -->
+
+  {% for lead in leads %}
+
+      <div class="table_row">
+        <div class="table_cell">{{ lead.name }}</div>
+        <div class="table_cell">{{ lead.primary_contact }}</div>
+
+        <div class="table_cell">${{ lead.total_value|default_if_none:"0" }}</div>
+
+        <div class="table_cell">{{ lead.total_deals }}</div>
+        <div class="table_cell">{{ lead.status }}</div>
+        <div class="table_cell">{{ lead.agent }}</div>
+        <div class="table_cell">
+          <a href="{% url 'leads:lead-detail' lead.pk %}">Details</a>
+        </div>
+      </div>
+    
+
+  {% endfor %}
+
+
+
+    
+    </div>
+  </div>
+</section>
+

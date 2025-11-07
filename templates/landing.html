@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@800&family=Material+Symbols+Rounded:wght@800&display=swap" />
+    
+</head>
+<body>
+  <section class="welcome">
+        {% include "registration/login.html" %}
+  </section>
+    {% include "scripts.html" %}
+</body>
+</html>
+

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section>
+  <div class="content">
+    <div>
+      <div class="detail_view">
+      <div class="detail_view_header"> 
+        <h1>{{ contact.first_name }} {{ contact.last_name }}</h1>
+            <div>
+               <a class="content_button" href="{% url 'contact-update' contact.pk %}">
+                  <span class="material-symbols-outlined">edit</span>
+                  Edit
+                </a>
+            </div>
+          </div>
+        <div class="table">
+          <div class="table_row">
+            <div class="table_cell">Name</div>
+            <div class="table_cell">{{ contact.first_name }}</div>
+          </div>
+          <div class="table_row">
+            <div class="table_cell">Surname</div>
+            <div class="table_cell">{{ contact.last_name }}</div>
+          </div>
+            <div class="table_row">
+            <div class="table_cell">Phone</div>
+            <div class="table_cell">{{ contact.phone }}</div>
+          </div>
+           <div class="table_row">
+            <div class="table_cell">Email</div>
+            <div class="table_cell">{{ contact.email }}</div>
+          </div>
+          <div class="table_row">
+            <div class="table_cell">Position</div>
+            <div class="table_cell">{{ contact.job_position }}</div>
+          </div>
+           <div class="table_row">
+            <div class="table_cell">Comapny</div>
+            <div class="table_cell">{{ contact.name }}</div>
+          </div>
+            <div class="table_row">
+            <div class="table_cell">Agent</div>
+            <div class="table_cell">{{ contact.agent }}</div>
+          </div>
+           
+    </div>
+ <p>
+     <a class="delete_button" href="{% url 'contact-delete' contact.pk %}">Delete
+        <span class="material-symbols-outlined">delete</span>
+     </a>
+</div>
+
+</section>
+{% endblock content%}
