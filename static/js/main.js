@@ -194,43 +194,64 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const scrollView = document.querySelector('.scroll-view');
-  const lines = Array.from(document.querySelectorAll('.scroll-line'));
-  if (!scrollView || lines.length === 0) return;
-
-  let timeoutId = null;
-
-  const updateActive = () => {
-    const center = scrollView.scrollTop + scrollView.clientHeight / 2;
-    let closest = null;
-    let minDist = Infinity;
-    lines.forEach(line => {
-      const lineCenter = line.offsetTop + line.offsetHeight / 2;
-      const dist = Math.abs(center - lineCenter);
-      if (dist < minDist) { minDist = dist; closest = line; }
+  const initScrollLogic = () => {
+    const scrollViews = Array.from(document.querySelectorAll('.scroll-view'));
+    const scrollView = scrollViews.find(el => {
+      const rect = el.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0;
     });
-    lines.forEach(l => l.classList.remove('active'));
-    if (closest) closest.classList.add('active');
+
+    if (!scrollView) return;
+
+    const lines = Array.from(scrollView.querySelectorAll('.scroll-line'));
+    if (lines.length === 0) return;
+
+    let timeoutId = null;
+
+    // 🔹 Wybór aktywnej linii: najbliżej środka
+    const updateActive = () => {
+      const center = scrollView.scrollTop + scrollView.clientHeight / 2;
+      let closest = null;
+      let minDist = Infinity;
+
+      lines.forEach(line => {
+        const lineCenter = line.offsetTop + line.offsetHeight / 2;
+        const dist = Math.abs(center - lineCenter);
+        if (dist < minDist) {
+          minDist = dist;
+          closest = line;
+        }
+      });
+
+      lines.forEach(l => l.classList.remove('active'));
+      if (closest) closest.classList.add('active');
+      return closest;
+    };
+
+    // 🔹 Snap do środka
+    const snap = () => {
+      const active = scrollView.querySelector('.scroll-line.active');
+      if (!active) return;
+      const target =
+        active.offsetTop - scrollView.clientHeight / 2 + active.offsetHeight / 2;
+      scrollView.scrollTo({ top: target, behavior: 'smooth' });
+    };
+
+    scrollView.addEventListener('scroll', () => {
+      updateActive();
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(snap, 120); // delikatne snapowanie
+    });
+
+    // 🔹 Start: pierwsza linia wyśrodkowana
+    requestAnimationFrame(() => {
+      lines.forEach(l => l.classList.remove('active'));
+      lines[0].classList.add('active');
+      const target =
+        lines[0].offsetTop - scrollView.clientHeight / 2 + lines[0].offsetHeight / 2;
+      scrollView.scrollTo({ top: target, behavior: 'auto' });
+    });
   };
 
-  const snap = () => {
-    const active = document.querySelector('.scroll-line.active');
-    if (!active) return;
-    const target = active.offsetTop - scrollView.clientHeight / 2 + active.offsetHeight / 2;
-    scrollView.scrollTo({ top: target, behavior: 'smooth' });
-  };
-
-  scrollView.addEventListener('scroll', () => {
-    updateActive();
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(snap, 120);
-  });
-
-  // start: center first and set active
-  requestAnimationFrame(() => {
-    updateActive();
-    const active = document.querySelector('.scroll-line.active') || lines[0];
-    const target = active.offsetTop - scrollView.clientHeight / 2 + active.offsetHeight / 2;
-    scrollView.scrollTo({ top: target, behavior: 'auto' });
-  });
+  window.addEventListener('load', initScrollLogic);
 });

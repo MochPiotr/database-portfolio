@@ -12,8 +12,16 @@
 </form>
 --> 
 
-<div class="welcome">
-<div class="form_container">
+
+<div class="mobile">
+    <div class="form_dis">
+        <div class="scroll-view" id="debug-scroll">
+            <h1 class="scroll-line">Hello You!</h1> 
+            <h4 class="scroll-line">To explore the portfolio project,
+            <h4 class="scroll-line">log in with the demo account.</h4>
+
+            <div class="scroll-line">
+                <div class="form_container">
 <form class="form" method="post" action="{% url 'landing-page' %}">
     {% csrf_token %}
     <div class="flex-column">
@@ -48,6 +56,51 @@
         <h3>Sign Up</h3>
     </span>
 </form>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--desktop-->
+<div class="desktop">
+
+
+<div class="welcome">
+<div class="form_container">
+<form class="form" method="post" action="{% url 'landing-page' %}">
+    {% csrf_token %}
+    <div class="flex-column">
+    {{ form.as_p }}
+      <label>Username </label></div>
+      <div class="inputForm">
+       
+        <input type="text" name="username" class="input" placeholder="Enter your Username: carlos">
+      </div>
+    
+    <div class="flex-column">
+      <label>Password </label></div>
+      <div class="inputForm">
+        <input type="password" name="password" class="input" placeholder="Enter your Password: test">
+      </div>
+      {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+    <button class="button-submit" type='submit'>
+        Login
+    </button>
+    
+    <a href="{% url 'reset-password' %}" class="submit">Forgot password?</a>
+    <hr/>
+    <div class="flex-row">
+
+      <span class="span">Forgot password?</span>
+    </div>
+    <p class="p">Don't have an account?</p> 
+    <button class="submit">Sign In</button>
+
+</form>
 
     <div class="form_dis">
         <div class="scroll-view" id="debug-scroll">
@@ -63,5 +116,5 @@
 </div>
 <div>
 <div>
-
+</div>
 
