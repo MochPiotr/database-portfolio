@@ -2,33 +2,38 @@ from pathlib import Path
 import environ
 
 # ------------------------
-# ENVIRONMENT
+# BASE DIR
+# ------------------------
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# ------------------------
+# ENVIRONMENT CONFIGURATION
 # ------------------------
 env = environ.Env(
     DEBUG=(bool, False)
 )
 
-READ_DOT_ENV_FILE = env.bool('READ_DOT_ENV_FILE', default=False)
-if READ_DOT_ENV_FILE:
-    environ.Env.read_env()
+# Zawsze wczytujemy plik .env (znajduje się obok manage.py)
+environ.Env.read_env(BASE_DIR / ".env")
 
-DEBUG = env.bool('DEBUG', default=False)
-SECRET_KEY = env('SECRET_KEY')
-
-# ------------------------
-# BASE DIR
-# ------------------------
-BASE_DIR = Path(__file__).resolve().parent.parent
+# Zmienne środowiskowe
+DEBUG = env.bool("DEBUG", default=False)
+SECRET_KEY = env("SECRET_KEY")
 
 # ------------------------
 # ALLOWED HOSTS / CSRF
 # ------------------------
 if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-    CSRF_TRUSTED_ORIGINS = ["http://localhost:8000", "http://127.0.0.1:8000"]
+    CSRF_TRUSTED_ORIGINS = [
+        "http://localhost:8000",
+        "http://127.0.0.1:8000"
+    ]
 else:
-    ALLOWED_HOSTS = ['.onrender.com']
-    CSRF_TRUSTED_ORIGINS = ["https://database-portfolio-nmqj.onrender.com"]
+    ALLOWED_HOSTS = ['.onrender.com', 'database-portfolio-nmqj.onrender.com']
+    CSRF_TRUSTED_ORIGINS = [
+        "https://database-portfolio-nmqj.onrender.com"
+    ]
 
 # ------------------------
 # APPLICATIONS
@@ -66,6 +71,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'CRM.urls'
 
+# ------------------------
+# TEMPLATES
+# ------------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -90,11 +98,11 @@ WSGI_APPLICATION = 'CRM.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST'),
-        'PORT': env('DB_PORT'),
+        'NAME': env("DB_NAME"),
+        'USER': env("DB_USER"),
+        'PASSWORD': env("DB_PASSWORD"),
+        'HOST': env("DB_HOST"),
+        'PORT': env("DB_PORT"),
     }
 }
 
