@@ -702,13 +702,12 @@ hr {
     width: 100%;           
     height: 100%;           
     box-sizing: border-box;
-    background: linear-gradient(358.31deg,#fff -24.13%,hsla(0, 20%, 65%, 0) 338.58%),linear-gradient(89.84deg,rgba(230,36,174,.15) .34%,rgba(94,58,255,.15) 16.96%,rgba(10,136,255,.15) 34.66%,rgba(75,191,80,.15) 50.12%,rgba(137,206,0,.15) 66.22%,rgba(239,183,0,.15) 82%,rgba(246,73,0,.15) 99.9%);
-  }
+}
 
   .form_container {
     display: flex;
     align-items: stretch;
-    
+    background-color: #fff;
     
     border-radius: 20px;  
     overflow: hidden;
@@ -738,7 +737,7 @@ hr {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: var(--bg);
+ 
     overflow: hidden; /* 👈 żeby nic nie wystawało */
     position: relative;
   }
