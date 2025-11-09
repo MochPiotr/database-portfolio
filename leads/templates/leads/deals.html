@@ -17,14 +17,6 @@
                 Add Deal
                 </a>
             </div>
-            <div>
-                {% if request.user.is_organisor %}
-                    <a class="content_button" href="{% url 'leads:lead-create' %}">
-                    <span class="material-symbols-outlined">add</span>
-                    Add Lead 
-                    </a>
-                {% endif %}
-            </div>
         </div>
         <div>
             <div class="content_stats">

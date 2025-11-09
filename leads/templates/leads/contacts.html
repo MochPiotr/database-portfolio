@@ -18,14 +18,7 @@
                 Add Contact
                 </a>
             </div>
-            <div>
-                {% if request.user.is_organisor %}
-                    <a class="content_button" href="{% url 'contact-create' %}">
-                    <span class="material-symbols-outlined">add</span>
-                    Add Lead 
-                    </a>
-                {% endif %}
-            </div>
+
         </div>
         {% include 'leads/contact_list.html' %}
     </div>
