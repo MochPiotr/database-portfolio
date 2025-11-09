@@ -241,7 +241,7 @@ class DealCreateView(LoginRequiredMixin, generic.CreateView):
         deal = form.save(commit=False)
 
         # przypisz organizację do deal.lead (jeśli chcesz, by każdy deal należał do jednej organizacji)
-        if self.request.user.is_authenticated:
+        if deal.lead:
             deal.lead.organisation = self.request.user.userprofile
             deal.lead.save()
 

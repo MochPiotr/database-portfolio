@@ -3,7 +3,7 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
-
+from django.dispatch import receiver
 
 
 class User(AbstractUser):
@@ -70,8 +70,22 @@ class Agent(models.Model):
     organisation = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user.first_name
+        return self.user.username
     
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        # Znajdź profil admina (organizację, do której mają należeć wszyscy)
+        try:
+            admin_user = User.objects.filter(is_superuser=True).first()
+            organisation_profile = admin_user.userprofile
+        except Exception:
+            organisation_profile = None
+
+        # Tworzymy UserProfile nowego użytkownika i przypisujemy do tej samej organizacji
+        UserProfile.objects.create(user=instance, organisation=organisation_profile)
+
 class Deal(models.Model):
     name = models.CharField(max_length=40) #title for deal
     lead = models.ForeignKey("Lead", on_delete=models.SET_NULL, null=True, blank=True, related_name="deals") #name of company from Leads
