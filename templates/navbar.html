@@ -8,10 +8,23 @@
         <span class="title">SalesPro</span>
       </div>
       <div class="account">
-        <span class="material-symbols-outlined">account_circle</span>
+        <span class="material-symbols-outlined" id="accountToggle">account_circle</span>
       </div>
   </header>
   
+  <div class="account-details" id="mobileAccount">
+      {% if request.user.is_authenticated %}
+        <div>Logged in as: {{ request.user.username }}</div>
+        <a href="{% url 'landing-page' %}">
+          Logout
+        </a> 
+      {% else %}
+        <a href="{% url 'login' %}">
+          Login
+        </a> 
+      {% endif %}
+  </div>
+
 </div>
 
 

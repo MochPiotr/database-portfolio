@@ -293,10 +293,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.getElementById('menuToggle');
   const mobileMenu = document.getElementById('mobileMenu');
 
+  const account = document.getElementById('accountToggle');
+  const mobileAccount = document.getElementById('mobileAccount');
+
   if (hamburger && mobileMenu) {
     hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      mobileMenu.classList.toggle('active'); // jeśli masz animację sidebaru
+      const isOpening = !mobileMenu.classList.contains('active');
+
+      // 🔹 Zanim otworzymy menu, zamknij drugie (konto)
+      if (account && mobileAccount) {
+        account.classList.remove('open');
+        mobileAccount.classList.remove('active');
+      }
+
+      // 🔹 Teraz przełącz hamburger
+      hamburger.classList.toggle('open', isOpening);
+      mobileMenu.classList.toggle('active', isOpening);
+    });
+  }
+
+  if (account && mobileAccount) {
+    account.addEventListener('click', () => {
+      const isOpening = !mobileAccount.classList.contains('active');
+
+      // 🔹 Zanim otworzymy konto, zamknij menu hamburgera
+      if (hamburger && mobileMenu) {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('active');
+      }
+
+      // 🔹 Teraz przełącz konto
+      account.classList.toggle('open', isOpening);
+      mobileAccount.classList.toggle('active', isOpening);
     });
   }
 });
+
+
+
+

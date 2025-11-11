@@ -192,6 +192,51 @@ body {
     border-radius: 10px;
   }
 
+  .account {
+    cursor: pointer;
+  }
+
+  .account-details {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: -100%;
+    margin: 10px;
+    padding-top: 30px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    transition: top 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+
+    z-index: 999;
+  }
+
+  /* Aktywne menu – wysuwane */
+  .account-details.active {
+    top: 25px;
+  }
+
+
+  .account-details.active a, .account-details.active div
+   {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--font);
+    font-weight: 400;
+    padding:25px 8px;
+    margin-bottom: 5px;    
+  }
+
+  .account-details.active a:hover {
+    color: var(--fonthover);  
+    cursor: pointer;
+  }
+
+
 
 
 @media (min-width: 1095px) {
