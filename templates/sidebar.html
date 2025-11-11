@@ -1,3 +1,25 @@
+   
+<div class="sidebar-mobile">
+    <div class="sidebar" id="mobileMenu">
+        {% if request.user.is_authenticated %}
+        <a class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">
+            Dashboard
+        </a>
+        <a href="{% url 'leads:leads' %}" class="{% if request.resolver_match.url_name == 'leads' %}active{% endif %}">
+            Leads
+        </a>
+        <a href="{% url 'contacts'%}" class="{% if request.resolver_match.url_name == 'contacts' %}active{% endif %}">
+            Contacts
+        </a>
+        <a href="{% url 'deals' %}" class="{% if request.resolver_match.url_name == 'deals' %}active{% endif %}">
+        Deals
+        </a>
+
+        {% endif %}
+    </div>
+</div>
+
+<div class="sidebar-desktop">    
     <div class="sidebar">
         {% if request.user.is_authenticated %}
         <a class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">
@@ -19,3 +41,4 @@
 
         {% endif %}
     </div>
+</div>

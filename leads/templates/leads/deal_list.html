@@ -38,30 +38,34 @@
   {% for deal in top_deals %}
     
       <div class="table_row">
-        <div class="table_cell">{{ deal.name }}</div>
-        <div class="table_cell">{{ deal.lead }}</div>
-        <div class="table_cell">${{ deal.value }}</div>
-        <div class="table_cell">{{ deal.probability }}%</div>
-        <div class="table_cell">{{ deal.close_date}}</div>
-        <div class="table_cell">{{ deal.agent|default:"n/a" }}</div>
-        <div class="table_cell">
-      <a href="{% url 'leads:deal-detail' deal.pk %}">Details</a>
-    </div>
+  <div class="table_cell" data-label="Name">{{ deal.name }}</div>
+  <div class="table_cell" data-label="Lead">{{ deal.lead }}</div>
+  <div class="table_cell" data-label="Value">${{ deal.value }}</div>
+  <div class="table_cell" data-label="Probability">{{ deal.probability }}%</div>
+  <div class="table_cell" data-label="Close date">{{ deal.close_date }}</div>
+  <div class="table_cell" data-label="Owner">{{ deal.agent|default:"n/a" }}</div>
+  <div class="table_cell" data-label="Action">
+    <a href="{% url 'leads:deal-detail' deal.pk %}">Details</a>
+  </div>
+</div>
+
       </div>
   {% endfor %}
 {% else %}
 
   {% for deal in deal_list %}
   <div class="table_row">
-    <div class="table_cell">{{ deal.name }}</div>
-    <div class="table_cell">{{ deal.lead }}</div>
-    <div class="table_cell">${{ deal.value }}</div>
-    <div class="table_cell">{{ deal.probability }}%</div>
-    <div class="table_cell">{{ deal.close_date}}</div>
-    <div class="table_cell">{{ deal.agent|default:"n/a" }}</div>
-    <div class="table_cell">
-      <a href="{% url 'leads:deal-detail' deal.pk %}">Details</a>
-    </div>
+  <div class="table_cell" data-label="Name">{{ deal.name }}</div>
+  <div class="table_cell" data-label="Lead">{{ deal.lead }}</div>
+  <div class="table_cell" data-label="Value">${{ deal.value }}</div>
+  <div class="table_cell" data-label="Probability">{{ deal.probability }}%</div>
+  <div class="table_cell" data-label="Close date">{{ deal.close_date }}</div>
+  <div class="table_cell" data-label="Owner">{{ deal.agent|default:"n/a" }}</div>
+  <div class="table_cell" data-label="Action">
+    <a href="{% url 'leads:deal-detail' deal.pk %}">Details</a>
+  </div>
+</div>
+
     {% empty %}
      <div class="table_cell">n/a</div>
     <div class="table_cell">n/a</div>

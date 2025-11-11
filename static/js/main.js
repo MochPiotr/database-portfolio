@@ -255,3 +255,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('load', initScrollLogic);
 });
+
+/* MENU */
+// --- Mobile menu toggle (sidebar wysuwany z dołu) ---
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.querySelector('menuToggle');      // Twój hamburger (span)
+  const mobileMenu = document.getElementById('mobileMenu'); // Sidebar z kategoriami
+
+  if (!toggleBtn || !mobileMenu) return; // zabezpieczenie, jeśli nie istnieją w tym templacie
+
+  // Kliknięcie hamburgera => otwórz / zamknij sidebar
+  toggleBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('active');
+    toggleBtn.classList.toggle('open'); // opcjonalnie — dla animacji ikony
+  });
+
+  // Kliknięcie w link w menu => zamknij sidebar
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      toggleBtn.classList.remove('open');
+    });
+  });
+
+  // (Opcjonalnie) kliknięcie poza sidebar => zamknij
+  document.addEventListener('click', (e) => {
+    const clickedInsideMenu = mobileMenu.contains(e.target);
+    const clickedHamburger = toggleBtn.contains(e.target);
+    if (!clickedInsideMenu && !clickedHamburger) {
+      mobileMenu.classList.remove('active');
+      toggleBtn.classList.remove('open');
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('active'); // jeśli masz animację sidebaru
+    });
+  }
+});

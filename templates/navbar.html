@@ -1,22 +1,41 @@
-<header class="navbar">
-  <div class="sub-navbar">
-    <div class="brand">
-      <span class="material-symbols-outlined">target</span>
-      <span class="title">SalesPro</span>
-    </div>
-    <nav class="nav-links">
-   
+<div class="navbar-mobile">
+  <header class="navbar">
+      <div class="menu" id="menuToggle" aria-label="open-menu">
+            <span class="line"></span>
+            <span class="line"></span>
+      </div>
+      <div class="brand">
+        <span class="title">SalesPro</span>
+      </div>
+      <div class="account">
+        <span class="material-symbols-outlined">account_circle</span>
+      </div>
+  </header>
+  
+</div>
+
+
+<div class="navbar-desktop">
+  <header class="navbar">
+    <div class="sub-navbar">
+      <div class="brand">
+        <span class="material-symbols-outlined">target</span>
+        <span class="title">SalesPro</span>
+      </div>
+      <nav class="nav-links">
     
-    {% if request.user.is_authenticated %}
-      Logged in as: {{ request.user.username }}
-      <a href="{% url 'landing-page' %}">
-        Logout
-      </a> 
-    {% else %}
-      <a href="{% url 'login' %}">
-        Login
-      </a> 
-    {% endif %}
-    </nav>
-  </div>
-</header>
+      
+      {% if request.user.is_authenticated %}
+        Logged in as: {{ request.user.username }}
+        <a href="{% url 'landing-page' %}">
+          Logout
+        </a> 
+      {% else %}
+        <a href="{% url 'login' %}">
+          Login
+        </a> 
+      {% endif %}
+      </nav>
+    </div>
+  </header>
+</div>

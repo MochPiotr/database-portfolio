@@ -50,22 +50,17 @@
   <!-- Dane -->
 
   {% for lead in leads %}
-
-      <div class="table_row">
-        <div class="table_cell">{{ lead.name }}</div>
-        <div class="table_cell">{{ lead.primary_contact }}</div>
-
-        <div class="table_cell">${{ lead.total_value|default_if_none:"0" }}</div>
-
-        <div class="table_cell">{{ lead.total_deals }}</div>
-        <div class="table_cell">{{ lead.status }}</div>
-        <div class="table_cell">{{ lead.agent }}</div>
-        <div class="table_cell">
-          <a href="{% url 'leads:lead-detail' lead.pk %}">Details</a>
-        </div>
+    <div class="table_row">
+      <div class="table_cell" data-label="Company">{{ lead.name }}</div>
+      <div class="table_cell" data-label="Primary Contact">{{ lead.primary_contact }}</div>
+      <div class="table_cell" data-label="Total Value">${{ lead.total_value|default_if_none:"0" }}</div>
+      <div class="table_cell" data-label="Deals">{{ lead.total_deals }}</div>
+      <div class="table_cell" data-label="Status">{{ lead.status }}</div>
+      <div class="table_cell" data-label="Agent">{{ lead.agent }}</div>
+      <div class="table_cell" data-label="Details">
+        <a href="{% url 'leads:lead-detail' lead.pk %}">Details</a>
       </div>
-    
-
+    </div>
   {% endfor %}
 
 
