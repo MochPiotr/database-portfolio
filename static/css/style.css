@@ -238,7 +238,6 @@ body {
 
 
 
-
 @media (min-width: 1095px) {
   .navbar-mobile { display: none; }
   .navbar-desktop { display: block;}
