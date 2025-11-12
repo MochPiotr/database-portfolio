@@ -9,6 +9,7 @@
   --label:hsl(239 84% 67%);
   --labelhover: hsl(239 100% 75%);
   --headline: 2rem;
+  --headline-mobile: 1.5rem;
   --bodyline: 1rem;
   --textline: 0.78rem;
   --gradient-primary: linear-gradient(135deg, hsl(239 84% 67%), hsl(239 100% 75%));
@@ -200,7 +201,7 @@ body {
     position: fixed;
     left: 0;
     right: 0;
-    top: -100%;
+    top: -110%;
     margin: 10px;
     padding-top: 30px;
     height: 100%;
@@ -374,7 +375,7 @@ body {
   position: fixed;
   left: 0;
   right: 0;
-  top: -100%;
+  top: -110%;
   margin: 10px;
   padding-top: 30px;
   height: 100%;
@@ -482,10 +483,15 @@ body {
 }
 
 .content h1 {
+  font-size: var(--headline-mobile);
+  margin: 5px 0px;
+}
+@media (min-width: 1095px) {
+.content h1 {
   font-size: var(--headline);
   margin: 5px 0px;
 }
-
+}
 .content_bar {
   display: flex;
   align-items: center;
@@ -500,42 +506,87 @@ body {
 }
 
 .content_button {
-  display: flex;
-  
+  display: flex; 
   background-color: var(--label);
   color: var(--bg);
-  border-radius: 10px;
+  border-radius: 16px;
   text-decoration: none;
-  padding:8px 10px;
+  padding:0px 8px 0px 5px;
   align-items: center; 
+  font-weight: 600;
+  }
+
+.content_button span {
+  padding: 5px 0px 5px 0px;
 }
 
 .content_button:hover {
-
   cursor: pointer;
   background-color: var(--labelhover);
-
-}
+  }
 
 .content_button_back {
   display: flex;
   width: 100px;
   background-color: var(--label);
   color: var(--bg);
-  border-radius: 10px;
+  border-radius: 16px;
   text-decoration: none;
-  padding:1px 2px;
+
   align-items: center; 
-}
+  margin-top: 40px;
+  font-weight: 600;
+  }
 
 .content_button_back:hover {
 
   cursor: pointer;
   background-color: var(--labelhover);
+  }
 
+@media (min-width: 1095px) {
+
+  .content_button {
+    display: flex;
+    
+    background-color: var(--label);
+    color: var(--bg);
+    border-radius: 10px;
+    text-decoration: none;
+    padding:8px 10px;
+    align-items: center; 
+  }
+
+  .content_button:hover {
+
+    cursor: pointer;
+    background-color: var(--labelhover);
+
+  }
+
+  .content_button span {
+  padding: 5px;
 }
 
+  .content_button_back {
+    display: flex;
+    width: 100px;
+    background-color: var(--label);
+    color: var(--bg);
+    border-radius: 10px;
+    text-decoration: none;
+    padding:1px 2px;
+    align-items: center; 
+  }
 
+  .content_button_back:hover {
+
+    cursor: pointer;
+    background-color: var(--labelhover);
+
+  }
+
+}
 .content_stats {
   display: grid;
   gap: 20px;
