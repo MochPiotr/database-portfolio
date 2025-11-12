@@ -12,6 +12,9 @@
 </form>
 --> 
 
+<canvas id="signalCanvas">
+    
+</canvas>
 
 <div class="mobile">
     <div class="form_dis">
@@ -20,7 +23,7 @@
             <h4 class="scroll-line">To explore the portfolio project,
             <h4 class="scroll-line">log in with the demo account.</h4>
 
-            <div class="scroll-line">
+            <div class="scroll-line" data-final="true">
                 <div class="form_container">
 <form class="form" method="post" action="{% url 'landing-page' %}">
     {% csrf_token %}
@@ -102,12 +105,11 @@
 
     <div class="form_dis">
         <div class="scroll-view" id="debug-scroll">
-        <h1 class="scroll-line">Hello You!</h1> 
-        <h4 class="scroll-line">To explore the portfolio project,</h4>
-        <h4 class="scroll-line">log in with the demo account.</h4>
-        <h4 class="scroll-line">Username: carlos</h4>
-        <h4 class="scroll-line">Password: test</h4>
-        <h4 class="scroll-line"> </h4>
+        <h1 class="line">Hello You!</h1> 
+        <h4 class="line">To explore the portfolio project,</h4>
+        <h4 class="line">log in with the demo account.</h4>
+        <h4 class="line">Username: carlos</h4>
+        <h4 class="line">Password: test</h4>
         </div>
     </div>
 

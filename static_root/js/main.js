@@ -1,5 +1,9 @@
 console.log("main.js")
 
+
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
   const dropdownToggle = document.getElementById("dropdown-toggle");
   const dropdownMenu = document.getElementById("dropdown-menu");
@@ -193,68 +197,68 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const initScrollLogic = () => {
-    const scrollViews = Array.from(document.querySelectorAll('.scroll-view'));
-    const scrollView = scrollViews.find(el => {
-      const rect = el.getBoundingClientRect();
-      return rect.width > 0 && rect.height > 0;
-    });
+document.addEventListener("DOMContentLoaded", () => {
+  const lines = Array.from(document.querySelectorAll(".scroll-line"));
+  if (lines.length === 0) return;
 
-    if (!scrollView) return;
+  // jeśli żadna linia nie ma data-final, ustaw ostatnią jako final
+  if (!lines.some(line => line.dataset.final === "true")) {
+    lines[lines.length - 1].dataset.final = "true";
+  }
 
-    const lines = Array.from(scrollView.querySelectorAll('.scroll-line'));
-    if (lines.length === 0) return;
+  let index = 0;
+  const delay = 1200;          // czas między przejściami (ms)
+  const transitionTime = 600;  // zgodny z CSS transition
 
-    let timeoutId = null;
+  // wyczyść wszystkie stany
+  lines.forEach(line => line.classList.remove("visible", "exit", "enter", "final"));
 
-    // 🔹 Wybór aktywnej linii: najbliżej środka
-    const updateActive = () => {
-      const center = scrollView.scrollTop + scrollView.clientHeight / 2;
-      let closest = null;
-      let minDist = Infinity;
+  // pokaż pierwszą linię natychmiast
+  lines[0].classList.add("visible");
 
-      lines.forEach(line => {
-        const lineCenter = line.offsetTop + line.offsetHeight / 2;
-        const dist = Math.abs(center - lineCenter);
-        if (dist < minDist) {
-          minDist = dist;
-          closest = line;
-        }
-      });
+  const nextLine = () => {
+    const current = lines[index];
+    const next = lines[index + 1];
 
-      lines.forEach(l => l.classList.remove('active'));
-      if (closest) closest.classList.add('active');
-      return closest;
-    };
+    // jeśli nie ma następnej -> zatrzymaj animację i zostaw ostatnią
+    if (!next) {
+      if (current.dataset.final === "true") {
+        current.classList.add("final");
+      }
+      return;
+    }
 
-    // 🔹 Snap do środka
-    const snap = () => {
-      const active = scrollView.querySelector('.scroll-line.active');
-      if (!active) return;
-      const target =
-        active.offsetTop - scrollView.clientHeight / 2 + active.offsetHeight / 2;
-      scrollView.scrollTo({ top: target, behavior: 'smooth' });
-    };
+    const nextIsFinal = next.dataset.final === "true";
 
-    scrollView.addEventListener('scroll', () => {
-      updateActive();
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(snap, 120); // delikatne snapowanie
-    });
+    // animacja wyjścia aktualnej
+    current.classList.remove("visible");
+    current.classList.add("exit");
 
-    // 🔹 Start: pierwsza linia wyśrodkowana
-    requestAnimationFrame(() => {
-      lines.forEach(l => l.classList.remove('active'));
-      lines[0].classList.add('active');
-      const target =
-        lines[0].offsetTop - scrollView.clientHeight / 2 + lines[0].offsetHeight / 2;
-      scrollView.scrollTo({ top: target, behavior: 'auto' });
-    });
+    // przygotuj kolejną linię (wchodzenie od dołu)
+    next.classList.add("enter");
+
+    // po czasie przejścia przenosimy klasę active
+    setTimeout(() => {
+      current.classList.remove("exit");
+      next.classList.remove("enter");
+      next.classList.add("visible");
+      index++;
+
+      // jeśli kolejna jest finalna, zatrzymaj animację
+      if (nextIsFinal) {
+        next.classList.add("final");
+        return;
+      }
+
+      // odpal kolejną po opóźnieniu
+      setTimeout(nextLine, delay);
+    }, transitionTime);
   };
 
-  window.addEventListener('load', initScrollLogic);
+  // uruchom animację po 0.8 sekundy, żeby użytkownik widział pierwszą linię
+  setTimeout(nextLine, 800);
 });
+
 
 /* MENU */
 // --- Mobile menu toggle (sidebar wysuwany z dołu) ---
