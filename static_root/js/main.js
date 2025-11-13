@@ -10,12 +10,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const options = dropdownMenu.querySelectorAll(".dropdown-option");
   const selectedText = document.getElementById("selected-filters");
 
-  // 🔻 otwieranie / zamykanie dropdowna
+  // otwieranie / zamykanie dropdowna
   dropdownToggle.addEventListener("click", function () {
     dropdownMenu.classList.toggle("active");
   });
 
-  // 🔹 funkcja filtrowania tabeli po Statusie (5 kolumna)
+  // funkcja filtrowania tabeli po Statusie (5 kolumna)
   function filterTableByStatus() {
     const rows = document.querySelectorAll(".table_row");
     const activeStatuses = Array.from(options)
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 🔹 logika wyboru dropdown
+  // logika wyboru dropdown
   options.forEach(option => {
     option.addEventListener("click", function (e) {
       const checkIcon = this.querySelector(".check-icon");
@@ -63,12 +63,12 @@ document.addEventListener("DOMContentLoaded", function () {
        
       }
 
-      // 🔹 wywołanie filtra po każdej zmianie dropdown
+      // wywołanie filtra po każdej zmianie dropdown
       filterTableByStatus();
     });
   });
 
-  // 🔹 klik poza dropdownem – zamknij
+  // klik poza dropdownem – zamknij
   document.addEventListener("click", function (e) {
     if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
       dropdownMenu.classList.remove("active");
