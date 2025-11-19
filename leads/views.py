@@ -105,8 +105,6 @@ class LeadsView(LoginRequiredMixin, generic.ListView):
             )
 
 
-
-        # Tu dodajemy sumę wartości powiązanych dealów
         queryset = queryset.annotate(total_value=Sum("deals__value"))
         queryset = queryset.annotate(total_deals=Count("deals"))
         return queryset
@@ -115,8 +113,6 @@ class LeadsView(LoginRequiredMixin, generic.ListView):
         context = super().get_context_data(**kwargs)
         user = self.request.user
 
-        # ⚠️ Nie nadpisujemy context["leads"], bo tracisz total_value!
-        # Jeśli chcesz dodać coś więcej, zrób to obok:
         if user.is_organisor:
             context["unassigned_leads"] = Lead.objects.filter(
                 organisation=user.userprofile,
@@ -171,7 +167,6 @@ class LeadDetailView(LoginRequiredMixin, generic.DetailView):
     def get_queryset(self):
         user = self.request.user 
 
-        #initial queryset of leads for the entire organisation
         if user.is_organisor:
             queryset = Lead.objects.filter(organisation = user.userprofile)
         else:
@@ -182,7 +177,6 @@ class LeadDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Pobranie wszystkich dealów przypisanych do tego leadu
         context['deals'] = Deal.objects.filter(lead=self.object)
         return context
 
@@ -203,7 +197,6 @@ class LeadCreateView(LoginRequiredMixin, generic.CreateView):
         return reverse("leads:leads")
     
     def form_valid(self, form):
-        # TO DO send email
         send_mail(
             subject="A lead has been created",
             message="Go to the site to see the new lead",
@@ -235,12 +228,12 @@ class DealCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = DealModelForm
 
     def get_success_url(self):
-        return reverse("deals")  # upewnij się, że taki URL name istnieje
+        return reverse("deals") 
 
     def form_valid(self, form):
         deal = form.save(commit=False)
 
-        # przypisz organizację do deal.lead (jeśli chcesz, by każdy deal należał do jednej organizacji)
+
         if deal.lead:
             deal.lead.organisation = self.request.user.userprofile
             deal.lead.save()
@@ -259,9 +252,9 @@ class ContactCreateView(LoginRequiredMixin, generic.CreateView):
         return reverse("contacts")
     
     def form_valid(self, form):
-        contact = form.save(commit=False)  # Tworzy obiekt, ale jeszcze go nie zapisuje do bazy
-        contact.organisation = self.request.user.userprofile  # przypisanie organizacji
-        contact.save()  # zapis do bazy
+        contact = form.save(commit=False)  
+        contact.organisation = self.request.user.userprofile  
+        contact.save() 
         return super().form_valid(form)
     
 def contact_create(request):
@@ -289,8 +282,7 @@ class ContactDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Pobranie wszystkich dealów przypisanych do tego leadu
-        #context['contacts'] = Contact.objects.filter(contact=self.object)
+
         return context
 
 class ContactUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -354,7 +346,7 @@ class LeadDeleteView(LoginRequiredMixin, generic.DeleteView):
     def get_queryset(self):
         user = self.request.user 
 
-        #initial queryset of leads for the entire organisation
+
         if user.is_organisor:
             queryset = Lead.objects.filter(
                 organisation = user.userprofile, 
@@ -365,7 +357,7 @@ class LeadDeleteView(LoginRequiredMixin, generic.DeleteView):
                 organisation = user.agent.organisation, 
                 agent__isnull=False
                 )
-            #filter for the agent that is logged in
+ 
             queryset = queryset.filter(agent__user=user)
         return queryset
     
@@ -426,7 +418,6 @@ class CategoryListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         user = self.request.user 
 
-        #initial queryset of leads for the entire organisation
         if user.is_organisor:
             queryset = Category.objects.filter(
                 organisation = user.userprofile
@@ -445,7 +436,6 @@ class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
     def get_queryset(self):
         user = self.request.user 
 
-        #initial queryset of leads for the entire organisation
         if user.is_organisor:
             queryset = Category.objects.filter(
                 organisation = user.userprofile
@@ -463,12 +453,10 @@ class LeadCategoryUpdateView(LoginRequiredMixin, generic.UpdateView):
     def get_queryset(self):
         user = self.request.user 
 
-        #initial queryset of leads for the entire organisation
         if user.is_organisor:
             queryset = Lead.objects.filter(organisation = user.userprofile)
         else:
             queryset = Lead.objects.filter(organisation = user.agent.organisation)
-            #filter for the agent that is logged in
             queryset = queryset.filter(agent__user=user)
         return queryset
         
@@ -587,7 +575,6 @@ class ContactListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "contacts"
 
     def get_queryset(self):
-        # Pobiera wszystkie kontakty i dodaje do każdego pola total_value i total_deals
         return Contact.objects.annotate(
             total_value=Sum("deals__value"),
             total_deals=Count("deals")
@@ -595,7 +582,7 @@ class ContactListView(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # kontakty już zawierają sumy i liczby dealów
+
         context["contacts"] = self.get_queryset()
         return context
     

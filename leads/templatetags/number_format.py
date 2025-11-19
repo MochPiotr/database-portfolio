@@ -16,13 +16,13 @@ def readable_number(value):
         # tysiące z separatorem
         return f"{int(value):,}".replace(",", " ")
     elif value < 1_000_000:
-        # setki tysięcy → 100K
+        # setki tysięcy
         return f"{int(value/1000)}K"
     elif value < 1_000_000_000:
-        # miliony → 1.4M
+        # miliony
         return f"{value/1_000_000:.1f}M"
     else:
-        # miliardy → 1.4B
+        # miliardy 
         return f"{value/1_000_000_000:.1f}B"
 
 @register.filter
@@ -44,6 +44,5 @@ def readable_data(value):
     if value.is_integer():
         return f"{int(value):,}".replace(",", " ")
     else:
-        # liczba zmiennoprzecinkowa z dwoma miejscami po przecinku
         return f"{value:,.2f}".replace(",", " ")
 

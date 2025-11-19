@@ -26,7 +26,7 @@ admin_user, created = User.objects.get_or_create(
 if created:
     admin_user.set_password(admin_password)
     admin_user.save()
-    print("✅ Stworzono admina")
+    print("Admin created")
 
 # Tworzenie Carlosa
 carlos_user, created = User.objects.get_or_create(
@@ -40,8 +40,8 @@ carlos_user, created = User.objects.get_or_create(
 if created:
     carlos_user.set_password(carlos_password)
     carlos_user.save()
-    print("✅ Stworzono Carlosa")
+    print("Carlos created")
 
 # Tworzenie agenta dla Carlosa
 Agent.objects.get_or_create(user=carlos_user, organisation=carlos_user.userprofile)
-print("✅ Carlos przypisany jako Agent")
+print("Carlos assigned as Agent")

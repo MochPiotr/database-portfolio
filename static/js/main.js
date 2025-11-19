@@ -1,21 +1,16 @@
 console.log("main.js")
 
-
-
-
-
+// dropdowna
 document.addEventListener("DOMContentLoaded", function () {
   const dropdownToggle = document.getElementById("dropdown-toggle");
   const dropdownMenu = document.getElementById("dropdown-menu");
   const options = dropdownMenu.querySelectorAll(".dropdown-option");
   const selectedText = document.getElementById("selected-filters");
 
-  // otwieranie / zamykanie dropdowna
   dropdownToggle.addEventListener("click", function () {
     dropdownMenu.classList.toggle("active");
   });
 
-  // funkcja filtrowania tabeli po Statusie (5 kolumna)
   function filterTableByStatus() {
     const rows = document.querySelectorAll(".table_row");
     const activeStatuses = Array.from(options)
@@ -36,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // logika wyboru dropdown
+  // wyboru dropdown
   options.forEach(option => {
     option.addEventListener("click", function (e) {
       const checkIcon = this.querySelector(".check-icon");
@@ -201,14 +196,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const lines = Array.from(document.querySelectorAll(".scroll-line"));
   if (lines.length === 0) return;
 
-  // jeśli żadna linia nie ma data-final, ustaw ostatnią jako final
+  // jeśli żadna linia nie ma data-final, ostatnia jako final
   if (!lines.some(line => line.dataset.final === "true")) {
     lines[lines.length - 1].dataset.final = "true";
   }
 
   let index = 0;
   const delay = 1200;          // czas między przejściami (ms)
-  const transitionTime = 600;  // zgodny z CSS transition
+  const transitionTime = 600;  
 
   // wyczyść wszystkie stany
   lines.forEach(line => line.classList.remove("visible", "exit", "enter", "final"));
@@ -261,14 +256,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /* MENU */
-// --- Mobile menu toggle (sidebar wysuwany z dołu) ---
+// Mobile menu toggle (sidebar wysuwany z dołu
 document.addEventListener('DOMContentLoaded', () => {
-  const toggleBtn = document.querySelector('menuToggle');      // Twój hamburger (span)
-  const mobileMenu = document.getElementById('mobileMenu'); // Sidebar z kategoriami
+  const toggleBtn = document.querySelector('menuToggle');    
+  const mobileMenu = document.getElementById('mobileMenu'); 
 
   if (!toggleBtn || !mobileMenu) return; // zabezpieczenie, jeśli nie istnieją w tym templacie
 
-  // Kliknięcie hamburgera => otwórz / zamknij sidebar
+  // Kliknięcie manue => otwórz / zamknij sidebar
   toggleBtn.addEventListener('click', () => {
     mobileMenu.classList.toggle('active');
     toggleBtn.classList.toggle('open'); // opcjonalnie — dla animacji ikony
@@ -304,13 +299,13 @@ document.addEventListener('DOMContentLoaded', () => {
     hamburger.addEventListener('click', () => {
       const isOpening = !mobileMenu.classList.contains('active');
 
-      // 🔹 Zanim otworzymy menu, zamknij drugie (konto)
+      // Zanim otworzymy menu, zamknij drugie (konto)
       if (account && mobileAccount) {
         account.classList.remove('open');
         mobileAccount.classList.remove('active');
       }
 
-      // 🔹 Teraz przełącz hamburger
+      // Teraz przełącz menu
       hamburger.classList.toggle('open', isOpening);
       mobileMenu.classList.toggle('active', isOpening);
     });
@@ -320,13 +315,13 @@ document.addEventListener('DOMContentLoaded', () => {
     account.addEventListener('click', () => {
       const isOpening = !mobileAccount.classList.contains('active');
 
-      // 🔹 Zanim otworzymy konto, zamknij menu hamburgera
+      // Zanim otworzymy konto, zamknij menu
       if (hamburger && mobileMenu) {
         hamburger.classList.remove('open');
         mobileMenu.classList.remove('active');
       }
 
-      // 🔹 Teraz przełącz konto
+      // Teraz przełącz konto
       account.classList.toggle('open', isOpening);
       mobileAccount.classList.toggle('active', isOpening);
     });
